@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 # svn merge-tool wrapper for meld
 # original file = https://github.com/olibre/svn-useful-scripts/blob/master/svn-merge-meld.sh
 
@@ -24,11 +24,11 @@ then
 
   #old meld version 1.6.* and before = three input files
   cat "$mine" > "$merged"
-  meld --LABEL="svn merge [Theirs | Mine->Merged | Base ]" "$theirs" "$merged" "$base"
+  meld --label="svn merge [Theirs | Mine->Merged | Base ]" "$theirs" "$merged" "$base"
    
 else
   
   # recent meld versions 1.7.* 1.8.* and above = four input files
-  meld --LABEL="svn merge [Theirs | Merged | Mine | Base ]" "$theirs" "$merged" "$mine" "$base" 
+  meld --label="svn merge [Theirs | Merged | Mine | Base ]" "$theirs" "$merged" "$mine" "$base" 
 
 fi
