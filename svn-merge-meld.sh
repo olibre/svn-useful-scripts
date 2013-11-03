@@ -21,14 +21,15 @@ version=$(meld --version | perl -pe '($_)=/([0-9]+([.][0-9]+)+)/' )
 
 if [[ "$version" < 1.7 ]]
 then
-
   #old meld version 1.6.* and before = three input files
   cat "$mine" > "$merged"
-  meld --label="svn merge [Theirs | Mine->Merged | Base ]" "$theirs" "$merged" "$base"
-   
+  meld --label="Base=${base##*/}"           "$base"   \
+       --label="Mine->Merged=${merged##*/}" "$merged" \
+       --label="Theirs=${theirs##*/}"       "$theirs"
 else
-  
   # recent meld versions 1.7.* 1.8.* and above = four input files
-  meld --label="svn merge [Theirs | Merged | Mine | Base ]" "$theirs" "$merged" "$mine" "$base" 
-
+  meld --label="Base=${base##*/}"           "$base"   \
+       --label="Mine=${mine##*/}"           "$mine"   \
+       --label="Merged=${merged##*/}"       "$merged" \
+       --label="Theirs=${theirs##*/}"       "$theirs"
 fi
